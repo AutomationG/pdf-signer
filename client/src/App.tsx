@@ -7,7 +7,7 @@ export default function App() {
   const [signedUrl, setSignedUrl] = useState<string | null>(null);
   
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col" id="pdf-signer-container">
       <Header />
 
       <main className="flex flex-1 flex-col md:flex-row gap-6 p-4">

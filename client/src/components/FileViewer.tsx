@@ -7,14 +7,18 @@ const FileViewer: React.FC<FileViewerProps> = ({signedUrl}) => {
             {signedUrl ? (
                 <div className="flex flex-col">
                     <div className="h-[60svh] md:h-[70vh]">
+                       {/* PDF viewer using embed tag */}
                         <embed
+                            id="pdf-signer-viewer"
                             src={signedUrl}
                             type="application/pdf"
                             className="h-full w-full rounded-lg border"
                         />
                     </div>
                     <div className="flex justify-center">
+                        {/* link to viewe file in new tab */}
                         <a
+                        id="pdf-signer-open-new-tab"
                         href={signedUrl}
                         target="_blank"
                         rel="noreferrer"
@@ -30,7 +34,7 @@ const FileViewer: React.FC<FileViewerProps> = ({signedUrl}) => {
                     </div>
                 </div>
             ) : (
-            <div className="grid h-[40svh] place-items-center text-gray-500">
+            <div className="grid h-[40svh] place-items-center text-gray-500" id="pdf-signer-no-file">
                 No signed PDF yet
             </div>
             )}

@@ -6,7 +6,7 @@ export const Header: React.FC = () => {
         <div className="flex items-center gap-2">
           <span className="inline-flex h-9 w-9 items-center justify-center 
           rounded-xl bg-sky-500 text-white font-bold">PS</span>
-          <h1 className="text-xl font-semibold">PDF Signer</h1>
+          <h1 className="text-xl font-semibold" id="pdf-signer-header">PDF Signer</h1>
         </div>
     </header>)
 }

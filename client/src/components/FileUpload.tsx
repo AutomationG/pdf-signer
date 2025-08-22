@@ -57,9 +57,10 @@ const FileUpload: React.FC<FileUploadProps> = ({onSigned}) => {
     };
 
     return(
-        <div className="w-full md:w-1/3 space-y-4">
-            <div
-            className="relative w-full cursor-pointer rounded-xl border-2
+        <div className="w-full md:w-1/3 space-y-4" id="pdf-signer-upload-section">
+            { /*Button to upload file from device*/ }
+            <div id="pdf-signer-dropzone"
+                className="relative w-full cursor-pointer rounded-xl border-2
                 border-dashed border-sky-500 bg-white p-4
                 text-center font-medium text-sky-500"
             >
@@ -73,7 +74,9 @@ const FileUpload: React.FC<FileUploadProps> = ({onSigned}) => {
                 aria-label="Upload PDF"
                 />
             </div>
+            { /*Button to upload file on server*/ }
             <button
+                id="pdf-signer-upload-button"
                 onClick={handleSignPDF}
                 disabled={!file || loading}
                 className="w-full rounded-xl bg-sky-500 
