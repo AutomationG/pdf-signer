@@ -1,0 +1,27 @@
+{
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "file",
+
+  // Use Prettier for general formatting (install "esbenp.prettier-vscode")
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  
+
+  // // Auto-run code actions on save
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "always",
+    "source.fixAll.eslint": "always",
+    "source.organizeImports": "always"
+  },
+  
+  // Keep JSON files using VS Code's JSON formatter
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+
+  // Tailwind class extraction for cva/cx helpers
+  "tailwindCSS.experimental.classRegex": [
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*?)[\"'`]"],
+    ["cx\\(([^)]*)\\)", "[\"'`]([^\"'`]*?)[\"'`]"]
+  ],
+  "editor.rulers": [100]
+}
