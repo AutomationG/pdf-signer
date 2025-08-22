@@ -2,7 +2,7 @@
   "name": "pdf-signer-backend",
   "private": true,
   "version": "1.0.0",
-  "main": "sign-pdf.ts",
+  "main": "signpdf.ts",
   "type": "module",
   "scripts": {
     "dev": "vercel dev",

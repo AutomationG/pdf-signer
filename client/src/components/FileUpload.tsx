@@ -35,7 +35,7 @@ const FileUpload: React.FC<FileUploadProps> = ({onSigned}) => {
         data.append("file", file);
        
         try {
-        const res = await axios.post('/api/sign-pdf', data, {
+        const res = await axios.post('/api/signpdf', data, {
             responseType: 'blob',
             headers: { 'Content-Type': 'multipart/form-data' },
         })
