@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import axios from "axios";
 import type { FileUploadProps } from "../utils/types";
-import { BASE_URL } from "../utils/constant";
 
 const FileUpload: React.FC<FileUploadProps> = ({onSigned}) => {
     const [file, setFile] = useState<File | null>(null);
@@ -36,7 +35,7 @@ const FileUpload: React.FC<FileUploadProps> = ({onSigned}) => {
         data.append("file", file);
        
         try {
-        const res = await axios.post(`${BASE_URL}/api/sign-pdf`, data, {
+        const res = await axios.post('/api/sign-pdf', data, {
             responseType: 'blob',
             headers: { 'Content-Type': 'multipart/form-data' },
         })

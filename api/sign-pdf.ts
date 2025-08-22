@@ -1,20 +1,15 @@
-import express from "express";
-import cors from "cors";
+// disable eslint for this file as it is a serverless function
+/* eslint-disable */
+// disable typescript checking for this file as it is a serverless function
+// @ts-nocheck
+
 import multer from "multer";
 import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
 
-const app = express();
-
-const PORT = 4000;
-const CORS_ORIGIN = "http://localhost:5173";
-
-app.use(cors({ origin: CORS_ORIGIN }));
-app.use(express.json());
-
-// Multer for in-memory PDF uploads
+// Multer setup (in-memory storage)
 const upload = multer({
   storage: multer.memoryStorage(),
-  limits: { fileSize: 20 * 1024 * 1024 }, // 20MB
+  limits: { fileSize: 20 * 1024 * 1024 },
   fileFilter: (_req, file, cb) => {
     if (file.mimetype !== "application/pdf") {
       return cb(new Error("Only PDFs are allowed"));
@@ -23,15 +18,33 @@ const upload = multer({
   },
 });
 
-// Core mock signing route
-app.post("/api/sign-pdf", upload.single("file"), async (req, res) => {
+// Utility to run multer inside a serverless function
+function runMiddleware(req, res, fn) {
+  return new Promise((resolve, reject) => {
+    fn(req, res, (result) => {
+      if (result instanceof Error) return reject(result);
+      return resolve(result);
+    });
+  });
+}
+
+// Hono-style route converted for Vercel Serverless
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
+
   try {
+    await runMiddleware(req, res, upload.single("file"));
+
     if (!req.file) {
       return res.status(400).json({ error: "No PDF uploaded." });
     }
+
     const original = req.file.buffer;
     const signed = await mockSignPdf(original);
     const filename = (req.file.originalname || "document.pdf").replace(/\.pdf$/i, "");
+
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader("Content-Disposition", `inline; filename="${filename}-signed.pdf"`);
     return res.status(200).send(Buffer.from(signed));
@@ -39,10 +52,9 @@ app.post("/api/sign-pdf", upload.single("file"), async (req, res) => {
     console.error("Signing error:", err);
     return res.status(500).json({ error: "Failed to sign the PDF (mock)." });
   }
-});
+}
 
-
- // Stamps every page with a visible "Signed (Mock)" label
+// PDF stamping logic
 async function mockSignPdf(buffer) {
   const now = new Date();
   const stampText = `Signed (Mock) • ${now.toISOString()}`;
@@ -55,7 +67,6 @@ async function mockSignPdf(buffer) {
     const fontSize = 10;
     const textWidth = font.widthOfTextAtSize(stampText, fontSize);
     const margin = 16;
-    // bottom-right corner
     page.drawText(stampText, {
       x: width - textWidth - margin,
       y: margin,
@@ -66,16 +77,5 @@ async function mockSignPdf(buffer) {
     });
   }
 
-  const signedBytes = await doc.save({ useObjectStreams: false });
-  return signedBytes;
+  return await doc.save({ useObjectStreams: false });
 }
-
-// 404 fallback for other routes
-app.use((_req, res) => {
-  res.status(404).json({ error: "Not found" });
-});
-
-app.listen(PORT, () => {
-  console.log(`Mock PDF signing server listening on http://localhost:${PORT}`);
-  console.log(`CORS origin allowed: ${CORS_ORIGIN}`);
-});

@@ -1,0 +1,15 @@
+{
+  "name": "pdf-signer-backend",
+  "private": true,
+  "version": "1.0.0",
+  "main": "sign-pdf.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'No build step at root'"
+  },
+  "dependencies": {
+    "multer": "^2.0.2",
+    "pdf-lib": "^1.17.1"
+  }
+}

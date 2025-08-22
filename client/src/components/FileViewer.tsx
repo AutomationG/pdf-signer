@@ -34,7 +34,8 @@ const FileViewer: React.FC<FileViewerProps> = ({signedUrl}) => {
                     </div>
                 </div>
             ) : (
-            <div className="grid h-[40svh] place-items-center text-gray-500" id="pdf-signer-no-file">
+            <div className="grid h-[40svh] place-items-center
+             text-gray-500" id="pdf-signer-no-file">
                 No signed PDF yet
             </div>
             )}

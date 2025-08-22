@@ -41,3 +41,15 @@ A lightweight web app for uploading and digitally signing PDF documents.
 4. Run in development:
   - npm run start 
   - or yarn dev
+
+
+## To Open in web browser
+1. Run client
+2. Run Server
+3. Open http:localhost:5173 on browser
+
+## To Open in mobile browser
+1. Run client
+2. Run Server
+3. Find IPv4 of your system: ipconfig on windows/ifconfig on MacOS
+3. Open http:/<IP>:5173 on mobile browser
