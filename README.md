@@ -12,13 +12,14 @@ A lightweight web app for uploading and digitally signing PDF documents.
 - Vite (build + dev server)
 - Tailwind CSS (styling)
 - axios(HTTP requests to backend API)
-- 
+- node
+- express(node webserver)
 
 ## Prerequisites
 - Node.js (22.12+)
 - npm or yarn
 
-## Quick start
+## Quick start client
 1. Open terminal and go to the client folder:
   - cd pdf-signer/client
 2. Install dependencies:
@@ -30,3 +31,13 @@ A lightweight web app for uploading and digitally signing PDF documents.
   - open app in browser
 5. Build for production:
   - npm run build
+
+## Quick start sever
+1. Open terminal and go to the server folder:
+  - cd pdf-signer/sever
+2. Install dependencies:
+  - npm install
+  - or yarn
+4. Run in development:
+  - npm run start 
+  - or yarn dev
